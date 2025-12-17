@@ -172,6 +172,40 @@
             </table>
         </div>
 
+        <div id="metas-section">
+    <header>
+        <h2>Minhas Metas</h2>
+        <button id="create-meta-btn">Criar Meta</button>
+    </header>
+    <div id="metas-list">
+        <!-- Exemplo de uma meta -->
+        <div class="meta-card">
+            <h3>Viagem para a praia</h3>
+            <p><strong>R$ 3.000</strong> de R$ 5.000</p>
+            <div class="progress-bar">
+                <div class="progress" style="width: 60%;"></div>
+            </div>
+            <button class="edit-btn">Editar</button>
+            <button class="delete-btn">Deletar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Criar Meta -->
+<div id="create-meta-modal" class="modal">
+    <div class="modal-content">
+        <h3>Criar Nova Meta</h3>
+        <label for="meta-name">Nome da Meta:</label>
+        <input type="text" id="meta-name" />
+        <label for="meta-value">Valor Total:</label>
+        <input type="number" id="meta-value" />
+        <label for="meta-deadline">Data de Conclusão:</label>
+        <input type="date" id="meta-deadline" />
+        <button id="save-meta">Salvar</button>
+    </div>
+</div>
+
+
     </main>
 
     <!-- SCRIPTS -->

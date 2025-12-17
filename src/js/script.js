@@ -296,3 +296,30 @@ function loadYear(year) {
     calculateTotals();
     createMonthlyChart(data);  // Chama a função para criar o gráfico
 }
+
+
+document.getElementById("create-meta-btn").addEventListener("click", () => {
+    document.getElementById("create-meta-modal").style.display = "block";
+});
+
+document.getElementById("save-meta").addEventListener("click", () => {
+    const name = document.getElementById("meta-name").value;
+    const value = document.getElementById("meta-value").value;
+    const deadline = document.getElementById("meta-deadline").value;
+
+    // Lógica para salvar a meta (pode usar LocalStorage, Backend ou manipulação do DOM)
+    const metasList = document.getElementById("metas-list");
+    const newMeta = document.createElement("div");
+    newMeta.classList.add("meta-card");
+    newMeta.innerHTML = `
+        <h3>${name}</h3>
+        <p><strong>R$ ${value}</strong> de R$ ${value}</p>
+        <div class="progress-bar">
+            <div class="progress" style="width: 0%;"></div>
+        </div>
+        <button class="edit-btn">Editar</button>
+        <button class="delete-btn">Deletar</button>
+    `;
+    metasList.appendChild(newMeta);
+    document.getElementById("create-meta-modal").style.display = "none";
+});
