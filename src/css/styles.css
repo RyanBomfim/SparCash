@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* =====================================================
+   ROOT
+===================================================== */
+:root {
+    --bg: #ffffff;
+    --card: #0b0f19;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #374151;
+    --green: #22c55e;
+    --red: #ef4444;
+}
+
+/* =====================================================
+   RESET
+===================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: #111827;
+    overflow-x: hidden;
+}
+
+/* =====================================================
+   SIDEBAR (DESKTOP)
+===================================================== */
+#sidebar {
+    background: var(--card);
+    height: 100vh;
+    width: 82px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: width .3s ease;
+    border-radius: 0 18px 18px 0;
+    z-index: 1000;
+}
+
+#sidebar.open-sidebar {
+    width: 240px;
+}
+
+#sidebar_content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#user {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+#user_avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 12px;
+}
+
+/* =====================================================
+   SIDEBAR MENU
+===================================================== */
+#side_items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.side-item a {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 10px;
+    justify-content: center;
+    transition: background .2s, color .2s;
+}
+
+.side-item.active a,
+.side-item:hover a {
+    background: #ffffff;
+    color: #111827;
+}
+
+.item-description {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    transition: width .3s ease;
+}
+
+#sidebar.open-sidebar .item-description {
+    width: 140px;
+}
+
+/* =====================================================
+   SIDEBAR CONTROLS
+===================================================== */
+#open_btn {
+    position: absolute;
+    top: 24px;
+    right: -12px;
+    background: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+}
+
+#sidebar.open-sidebar #open_btn_icon {
+    transform: rotate(180deg);
+}
+
+#logout {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+#logout_btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+main {
+    margin-left: 82px;
+    padding: 32px;
+    width: calc(100% - 82px);
+    transition: .3s;
+}
+
+#sidebar.open-sidebar ~ main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+}
+
+/* =====================================================
+   CONTROLS
+===================================================== */
+.controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.controls button,
+.controls select {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.controls button {
+    background: #ffffff;
+    color: #111827;
+}
+
+/* =====================================================
+   CARDS
+===================================================== */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+.welcome-card {
+    background: #f6f6f6;
+    color: #111827;
+    padding: 30px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+.welcome-content h2 {
+    font-size: 1rem;
+    display: flex;
+}
+
+.welcome-content input {
+    font-size: 2rem;
+    width: 50%;
+    color: green;
+}
+
+.welcome-content p {
+    font-size: 1.1rem;
+    margin-top: 4px;
+}
+
+.welcome-illustration {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(142, 230, 142);
+    padding: 15px;
+    border-radius: 100%;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/* =====================================================
+   INPUTS (CORRIGIDOS)
+===================================================== */
+input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    text-align: center;
+    color: #111827;
+    font-size: 14px;
+}
+
+/* Inputs em áreas escuras */
+.table-container input,
+.chart-card input {
+    color: #e5e7eb;
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-container {
+    background: var(--card);
+    padding: 16px;
+    border-radius: 14px;
+}
+
+table {
+    width: 100%;
+    min-width: 860px;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 10px;
+    text-align: center;
+}
+
+thead th {
+    background: #ffffff;
+    color: #111827;
+    font-weight: 600;
+}
+
+tbody td {
+    color: #e5e7eb;
+}
+
+tbody tr:hover {
+    background: rgba(255,255,255,.05);
+}
+
+/* ========================
+   TABLE DRAG & DROP
+======================== */
+
+tbody tr {
+    cursor: grab;
+}
+
+tbody tr:active {
+    cursor: grabbing;
+}
+
+tbody tr.dragging {
+    opacity: 0.5;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+
+/* =====================================================
+   CHART
+===================================================== */
+.chart-section {
+    margin-top: 32px;
+    width: 100%;
+}
+
+.chart-card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 20px;
+    width: 100%;
+}
+
+.chart-header h3 {
+    color: #ffffff;
+}
+
+.chart-wrapper {
+    width: 100%;
+    height: 240px;
+}
+
+.chart-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* =====================================================
+   FINANCIAL COLORS
+===================================================== */
+.value-positive { color: var(--green); font-weight: 600; }
+.value-negative { color: var(--red); font-weight: 600; }
+.value-zero { color: var(--muted); }
+
+/* =====================================================
+   MOBILE (BOTTOM BAR)
+===================================================== */
+@media (max-width: 768px) {
+
+    #sidebar {
+        width: 100%;
+        height: 72px;
+        bottom: 0;
+        top: auto;
+        border-radius: 18px 18px 0 0;
+    }
+
+    #sidebar_content {
+        flex-direction: row;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #user,
+    #open_btn,
+    #logout {
+        display: none;
+    }
+
+    #side_items {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .side-item a {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .item-description {
+        display: none;
+    }
+
+    .side-item.active a {
+        background: none;
+        color: var(--green);
+    }
+
+    main {
+        margin-left: 0;
+        width: 100%;
+        padding: 16px;
+        padding-bottom: 96px;
+    }
+
+    #sidebar.open-sidebar ~ main {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .welcome-illustration img {
+        width: 90px;
+    }
+
+    table {
+        min-width: 720px;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+@media (max-width: 480px) {
+    table {
+        min-width: 640px;
+    }
+
+    .chart-wrapper {
+        height: 200px;
+    }
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ICONS / LIBS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- STYLES -->
+    <link rel="stylesheet" href="src/css/styles.css">
+    <link rel="shortcut icon" href="src/img/logo-sparcash.ico" type="image/x-icon">
+
+    <title>SparCash</title>
+</head>
+
+<body>
+
+   <!-- ================= SIDEBAR ================= -->
+<nav id="sidebar">
+    <div id="sidebar_content">
+
+        <!-- USER / LOGO -->
+        <div id="user">
+            <img src="src/img/logo-sparcash.ico" id="user_avatar" alt="SparCash">
+        </div>
+
+        <!-- MENU -->
+        <ul id="side_items">
+            <li class="side-item active">
+                <a href="#">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="item-description">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="side-item">
+                <a href="#">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span class="item-description">Ganhos</span>
+                </a>
+            </li>
+
+            <li class="side-item">
+                <a href="#">
+                    <i class="fa-solid fa-arrow-trend-down"></i>
+                    <span class="item-description">Gastos</span>
+                </a>
+            </li>
+
+            <li class="side-item">
+                <a href="#">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <span class="item-description">Metas</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- BOTÃO DESKTOP -->
+        <button id="open_btn">
+            <i id="open_btn_icon" class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <!-- LOGOUT -->
+    <div id="logout">
+        <button id="logout_btn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+    </div>
+</nav>
+
+
+    <!-- ================= MAIN ================= -->
+    <main>
+
+
+        <!-- ===== TÍTULO ===== -->
+        <h1>Welcome to SparCash</h1>
+
+
+        <!-- ===== CARDS ===== -->
+        <div class="cards-container">
+
+            <!-- WELCOME -->
+            <div class="welcome-card">
+                <div class="welcome-content">
+                    <h2>Hello, Ryan 👋</h2>
+                    <p>It's good to see you again.</p>
+                </div>
+
+                <div class="welcome-illustration" style="background-color: rgb(199, 238, 238);">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+            </div>
+
+            <!-- VALOR GUARDADO -->
+            <div class="welcome-card savings-card">
+                <div class="welcome-content">
+                    <span class="label">Valor guardado</span>
+
+                    <!-- VALOR DINÂMICO -->
+                    <h2 class="amount">
+                        R$ <input type="number" id="amountInput" value="2920.50" min="0" step="0.01">
+                    </h2>
+
+                    <p class="hint" id="savedStatus">
+                        Dentro da meta mensal
+                    </p>
+
+                </div>
+
+                <div class="welcome-illustration">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== GRÁFICO ===== -->
+        <section class="chart-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Resumo mensal</h3>
+                    <span>Valores totais por mês</span>
+                </div>
+
+                <div class="chart-wrapper">
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TÍTULO ===== -->
+        <h1 style="padding: 30px;">Controle Financeiro</h1>
+
+        <!-- ===== CONTROLS ===== -->
+        <div class="controls">
+            <select id="yearSelect"></select>
+            <button id="addRow">+ Nova linha</button>
+        </div>
+
+        <!-- ===== TABLE ===== -->
+        <div class="table-wrapper">
+            <table id="financeTable">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Jan</th>
+                        <th>Fev</th>
+                        <th>Mar</th>
+                        <th>Abr</th>
+                        <th>Mai</th>
+                        <th>Jun</th>
+                        <th>Jul</th>
+                        <th>Ago</th>
+                        <th>Set</th>
+                        <th>Out</th>
+                        <th>Nov</th>
+                        <th>Dez</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+
+                <tfoot>
+                    <tr id="monthTotals"></tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="src/js/script.js"></script>
+
+</body>
+
+</html>
