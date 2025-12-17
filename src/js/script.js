@@ -297,29 +297,160 @@ function loadYear(year) {
     createMonthlyChart(data);  // Chama a função para criar o gráfico
 }
 
+/* =====================================================
+   NAVEGAÇÃO ENTRE ABAS
+===================================================== */
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
 
-document.getElementById("create-meta-btn").addEventListener("click", () => {
-    document.getElementById("create-meta-modal").style.display = "block";
+    document.getElementById(pageId).classList.add('active');
+    localStorage.setItem('activePage', pageId);
+}
+
+window.addEventListener('load', () => {
+    const savedPage = localStorage.getItem('activePage') || 'dashboard';
+    showPage(savedPage);
 });
 
-document.getElementById("save-meta").addEventListener("click", () => {
-    const name = document.getElementById("meta-name").value;
-    const value = document.getElementById("meta-value").value;
-    const deadline = document.getElementById("meta-deadline").value;
+/* =====================================================
+   SISTEMA DE METAS – SPARCASH
+===================================================== */
 
-    // Lógica para salvar a meta (pode usar LocalStorage, Backend ou manipulação do DOM)
-    const metasList = document.getElementById("metas-list");
-    const newMeta = document.createElement("div");
-    newMeta.classList.add("meta-card");
-    newMeta.innerHTML = `
-        <h3>${name}</h3>
-        <p><strong>R$ ${value}</strong> de R$ ${value}</p>
-        <div class="progress-bar">
-            <div class="progress" style="width: 0%;"></div>
-        </div>
-        <button class="edit-btn">Editar</button>
-        <button class="delete-btn">Deletar</button>
-    `;
-    metasList.appendChild(newMeta);
-    document.getElementById("create-meta-modal").style.display = "none";
-});
+/* =========================
+   DADOS
+========================= */
+let metas = JSON.parse(localStorage.getItem('metas')) || [];
+
+
+/* =========================
+   ELEMENTOS
+========================= */
+const btnAddMeta = document.getElementById('btnAddMeta');
+const metasList = document.getElementById('metas-list');
+
+
+/* =========================
+   EVENTOS
+========================= */
+if (btnAddMeta) {
+    btnAddMeta.addEventListener('click', criarMeta);
+}
+
+
+/* =========================
+   FUNÇÕES PRINCIPAIS
+========================= */
+
+function criarMeta() {
+    const nome = prompt('Nome da meta:');
+    if (!nome) return;
+
+    const valorTotal = Number(prompt('Valor total da meta:'));
+    if (!valorTotal || valorTotal <= 0) return;
+
+    const novaMeta = {
+        id: Date.now(),
+        nome: nome,
+        valorTotal: valorTotal,
+        valorAtual: 0,
+        criadaEm: new Date().toISOString()
+    };
+
+    metas.push(novaMeta);
+    salvarMetas();
+    renderizarMetas();
+}
+
+
+function adicionarValorMeta(id) {
+    const valor = Number(prompt('Quanto deseja adicionar à meta?'));
+    if (!valor || valor <= 0) return;
+
+    const meta = metas.find(m => m.id === id);
+    if (!meta) return;
+
+    meta.valorAtual += valor;
+
+    if (meta.valorAtual > meta.valorTotal) {
+        meta.valorAtual = meta.valorTotal;
+    }
+
+    salvarMetas();
+    renderizarMetas();
+}
+
+
+function removerMeta(id) {
+    const confirmar = confirm('Tem certeza que deseja excluir esta meta?');
+    if (!confirmar) return;
+
+    metas = metas.filter(meta => meta.id !== id);
+    salvarMetas();
+    renderizarMetas();
+}
+
+
+/* =========================
+   RENDERIZAÇÃO
+========================= */
+
+function renderizarMetas() {
+    if (!metasList) return;
+
+    metasList.innerHTML = '';
+
+    if (metas.length === 0) {
+        metasList.innerHTML = '<p>Nenhuma meta criada ainda.</p>';
+        return;
+    }
+
+    metas.forEach(meta => {
+        const progresso = calcularProgresso(meta.valorAtual, meta.valorTotal);
+
+        const card = document.createElement('div');
+        card.classList.add('meta-card');
+
+        card.innerHTML = `
+            <h3>${meta.nome}</h3>
+
+            <p>
+                R$ ${meta.valorAtual.toFixed(2)} /
+                R$ ${meta.valorTotal.toFixed(2)}
+            </p>
+
+            <div class="progress-bar">
+                <div class="progress" style="width: ${progresso}%"></div>
+            </div>
+
+            <small>${progresso}% concluído</small>
+
+            <div class="meta-actions">
+                <button onclick="adicionarValorMeta(${meta.id})">+ Valor</button>
+                <button onclick="removerMeta(${meta.id})">Excluir</button>
+            </div>
+        `;
+
+        metasList.appendChild(card);
+    });
+}
+
+
+/* =========================
+   UTILIDADES
+========================= */
+
+function calcularProgresso(atual, total) {
+    return Math.min(Math.round((atual / total) * 100), 100);
+}
+
+function salvarMetas() {
+    localStorage.setItem('metas', JSON.stringify(metas));
+}
+
+
+/* =========================
+   INIT
+========================= */
+renderizarMetas();
